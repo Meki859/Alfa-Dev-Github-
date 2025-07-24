@@ -2,77 +2,95 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Subdomain Generator</title>
-
-  <!-- Tambahkan defer script JS -->
   <script defer src="app.js"></script>
-
   <style>
     body {
       font-family: sans-serif;
-      background: #1a202c;
+      background: #0f172a;
       color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
       margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
     }
     .card {
-      background: #2d3748;
+      background: #1e293b;
       padding: 2rem;
-      border-radius: 8px;
+      border-radius: 10px;
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
+    }
+    label {
+      font-size: 0.875rem;
+      margin-top: 1rem;
+      display: block;
     }
     input, select, button {
       width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.5rem;
+      padding: 0.6rem;
+      margin-top: 0.25rem;
+      border-radius: 6px;
       border: none;
-      border-radius: 4px;
+      font-size: 1rem;
     }
     button {
-      background: #3182ce;
+      background: #3b82f6;
       color: white;
+      margin-top: 1.5rem;
+      font-weight: bold;
       cursor: pointer;
     }
     button:hover {
-      background: #2b6cb0;
+      background: #2563eb;
     }
-    .result {
+    .success-box {
+      background: #10b98122;
+      border: 1px solid #10b981;
+      padding: 1rem;
       margin-top: 1rem;
-      min-height: 1.5em;
+      border-radius: 8px;
+    }
+    .footer {
+      margin-top: 2rem;
+      text-align: center;
+      color: #94a3b8;
     }
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>Subdomain Generator</h1>
+    <h2>🚀 Subdomain Generator</h2>
     <form id="subForm">
-      <label>Subdomain:</label>
-      <input name="subdomain" required placeholder="yourname" />
-      
-      <label>Record Type:</label>
+      <label>Subdomain</label>
+      <input name="subdomain" placeholder="yourname" required />
+
+      <label>Domain</label>
+      <select name="domain" required>
+        <option value="alfadev-shadows.biz.id">alfadev-shadows.biz.id</option>
+      </select>
+
+      <label>Record Type</label>
       <select name="record">
         <option value="A">A</option>
         <option value="CNAME">CNAME</option>
         <option value="TXT">TXT</option>
       </select>
-      
-      <label>IP / Content:</label>
-      <input name="content" required placeholder="1.2.3.4" />
-      
-      <label>
-        <input type="checkbox" name="proxied" />
-        Cloudflare Proxy
-      </label>
-      
-      <button type="submit">Create Subdomain</button>
-    </form>
 
-    <div class="result" id="result"></div>
+      <label>Content / IP</label>
+      <input name="content" placeholder="1.2.3.4" required />
+
+      <label><input type="checkbox" name="proxied" /> Enable Cloudflare Proxy</label>
+
+      <button type="submit">➕ Create Subdomain</button>
+    </form>
+    <div class="success-box" id="result" style="display:none;"></div>
+  </div>
+
+  <div class="footer">
+    ❤️ Special Thanks<br><b>Allah SWT</b>
   </div>
 </body>
 </html>

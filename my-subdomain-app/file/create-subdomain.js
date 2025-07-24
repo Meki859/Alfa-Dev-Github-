@@ -4,14 +4,13 @@ export default async function handler(req, res) {
     return res.status(405).json({ success: false, error: 'Method Not Allowed' });
   }
 
-  const { subdomain, record, content, proxied } = req.body;
+  const { subdomain, record, content, proxied, domain } = req.body;
 
-  // Basic validation
-  if (!subdomain || !record || !content) {
+  if (!subdomain || !record || !content || !domain) {
     return res.status(400).json({ success: false, error: 'Missing required fields' });
   }
 
-  const name = `${subdomain}.${process.env.CF_DOMAIN}`;
+  const name = `${subdomain}.${domain}`;
   const url = `https://api.cloudflare.com/client/v4/zones/${process.env.CF_ZONE_ID}/dns_records`;
 
   try {
@@ -33,13 +32,11 @@ export default async function handler(req, res) {
     const data = await cf.json();
 
     if (data.success) {
-      return res.status(200).json({ success: true, message: `Subdomain ${name} created.` });
+      return res.status(200).json({ success: true });
     } else {
-      console.error('Cloudflare Error:', data.errors);
       return res.status(400).json({ success: false, error: data.errors });
     }
   } catch (err) {
-    console.error('Server Error:', err);
-    return res.status(500).json({ success: false, error: 'Internal Server Error' });
+    return res.status(500).json({ success: false, error: err.message });
   }
 }
